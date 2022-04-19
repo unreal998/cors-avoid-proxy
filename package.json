@@ -1,0 +1,13 @@
+{
+  "name": "cors-avoid-proxy",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "firebase-functions": "^3.19.0",
+    "request": "^2.88.2"
+  }
+}
