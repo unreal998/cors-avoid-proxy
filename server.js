@@ -13,9 +13,9 @@ app.use('/', function(clientRequest, clientResponse) {
     let parsedPort;
     let parsedSSL;
     const target =  url.parse(clientRequest.query.url);
-    const targetQuery =  url.parse(clientRequest.query.query);
+    console.log("taaargerrrttt===", clientRequest.query);
     // const target =  url.parse('https://api.config.watchabc.go.com/appsconfig/prod/abcnewsv1/012/3.1.0/config.json');
-    // console.log("taaargerrrttt===", target);
+
     if (target.protocol === 'https:') {
         parsedPort = 443
         parsedSSL = https
@@ -23,22 +23,22 @@ app.use('/', function(clientRequest, clientResponse) {
         parsedPort = 80
         parsedSSL = http
     }
-    console.log(clientRequest);
     target.headers = {
         'X-Forwarded-For': '75.166.84.69',
         ...target.headers
     }
-
+    const targetUrl = clientRequest.originalUrl.slice(6+clientRequest.query.url.length);
     const options = {
         hostname: target.host,
         protocol: target.protocol,
         port: parsedPort,
-        path: target.path + "&query=" + targetQuery.pathname,
+        path: target.path + targetUrl,
         method: clientRequest.method,
         headers: target.headers
 
     };
-    // const targetUrl = clientRequest.originalUrl.slice(6)
+    
+    console.log("taaargerrrttt===", options);
     const serverRequest = parsedSSL.request(options, function (serverResponse) {
         let body = '';
         if (String(serverResponse.headers['content-type']).indexOf('application/json;charset=UTF-8') !== -1) {
